@@ -4,10 +4,11 @@ import (
 	"debug/elf"
 	"fmt"
 	"log"
+	"os"
 )
 
 func main() {
-	file, err := elf.Open("testdata/repro")
+	file, err := elf.Open(os.Args[1])
 	if err != nil {
 		log.Fatal(err)
 	}

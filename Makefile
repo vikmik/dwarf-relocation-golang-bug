@@ -1,14 +1,17 @@
-.PHONY: all test
+.PHONY: all test testbinaries
 
 all: test
 
-testdata/repro:
+testbinaries:
 	cd testdata && make
 
 dwarf-relocation-golang-bug: main.go
 	go build
 
-test: testdata/repro dwarf-relocation-golang-bug
+test: testbinaries dwarf-relocation-golang-bug
+	@echo "-------------------------"
+	@./test.sh testdata/good
 	@echo
-	@echo "Running test"
-	@./test.sh
+	@echo "-------------------------"
+	@./test.sh testdata/bad
+	@echo "-------------------------"
